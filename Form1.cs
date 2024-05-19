@@ -48,16 +48,24 @@ namespace CRUDapp
 
         private void btnsave_Click(object sender, EventArgs e)
         {
-            if(txtIndex.Text == "")
+            if(txtIndex.Text == "" && txtName.Text != "" && txtPhone.Text != "" && txtEmail.Text != "" && txtAddress.Text != "")
             {
                 cmd.Connection = conn;
-                string query = $"insert into employeeTable values('{txtName.Text}','{txtPhone.Text}','{txtEmail.Text}','{txtAddress.Text}','{dateTimePicker.Value}')";
+                string query = $"insert into employeeTable values('{txtName.Text.Trim().ToLower()}','{txtPhone.Text.ToLower().Trim()}','{txtEmail.Text.ToLower().Trim()}','{txtAddress.Text.ToLower().Trim()}','{dateTimePicker.Value}')";
                 cmd.CommandText = query;
                 conn.Open();
                 cmd.ExecuteNonQuery();
                 ClearData();
                 conn.Close();
                 DisplayData();
+            }
+            else if(txtIndex.Text != "")
+            {
+               //Do nothing as save btn has nothing to do with the above expression.
+            }
+            else
+            {
+                MessageBox.Show("Fill every fields");
             }
         }
 
@@ -75,16 +83,81 @@ namespace CRUDapp
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnupdate_Click(object sender, EventArgs e)
         {
+            if (txtIndex.Text != "" && txtName.Text != "" && txtPhone.Text != "" && txtEmail.Text != "" && txtAddress.Text != "")
+            {
+                conn.Open();
+                SqlCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "update employeeTable set full_name='" + txtName.Text.Trim().ToLower() + "',phone_no='" + txtPhone.Text.ToLower().Trim() + "',email='" + txtEmail.Text.ToLower().Trim() + "',physical_address='" + txtAddress.Text.ToLower().Trim() + "',date_of_hire='" + dateTimePicker.Value + "' where index_num='" + txtIndex.Text + "' ";
+                cmd.ExecuteNonQuery();
+                conn.Close();
+                DisplayData();
+                ClearData();
+            }
+            else if(txtIndex.Text == "")
+            {
+               //Do nothing as update btn has nothing to do with the above expression.
+            }
+            else
+            {
+                MessageBox.Show("Fill every field");
+            }
+        }
+
+        private void btndelete_Click(object sender, EventArgs e)
+        {
+            cmd.Connection = conn;
+            string query = $"delete employeeTable where index_num='{txtIndex.Text}'";
+            cmd.CommandText = query;
             conn.Open();
-            SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "update employeeTable set full_name='" + txtName.Text + "',phone_no='" + txtPhone.Text + "',email='" + txtEmail.Text + "',physical_address='" + txtAddress.Text + "',date_of_hire='" + dateTimePicker.Value + "' where index_num='" + txtIndex.Text + "' ";
             cmd.ExecuteNonQuery();
+            dataGridView1.DataSource = query;
+            ClearData();
             conn.Close();
             DisplayData();
-            ClearData();
+        }
+
+        private void btnexit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void btnsearch_Click(object sender, EventArgs e)
+        {
+            if(txtSearch.Text != "")
+            {
+                conn.Open();
+                SqlCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select * from employeeTable where full_name='" + txtSearch.Text.ToLower().Trim() + "'";
+                cmd.ExecuteNonQuery();
+                DataTable dt = new DataTable();
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                adapter.Fill(dt);
+                dataGridView1.DataSource = dt;
+                conn.Close();
+            }
+            else
+            {
+                DisplayData();
+            }
+        }
+
+        private void txtSearch_MouseClick(object sender, MouseEventArgs e)
+        {
+            txtSearch.Text = "";
+        }
+
+        private void txtPhone_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = char.IsLetter(e.KeyChar);
+        }
+
+        private void txtName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = char.IsNumber(e.KeyChar);
         }
     }
 }

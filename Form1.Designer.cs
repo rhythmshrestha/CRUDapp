@@ -29,8 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.txtIndex = new System.Windows.Forms.TextBox();
+            this.btnexit = new System.Windows.Forms.Button();
+            this.btndelete = new System.Windows.Forms.Button();
             this.btnupdate = new System.Windows.Forms.Button();
             this.btnsave = new System.Windows.Forms.Button();
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
@@ -44,9 +45,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.button5 = new System.Windows.Forms.Button();
-            this.txtIndex = new System.Windows.Forms.TextBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.btnsearch = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -55,8 +55,8 @@
             // 
             this.groupBox1.AutoSize = true;
             this.groupBox1.Controls.Add(this.txtIndex);
-            this.groupBox1.Controls.Add(this.button4);
-            this.groupBox1.Controls.Add(this.button3);
+            this.groupBox1.Controls.Add(this.btnexit);
+            this.groupBox1.Controls.Add(this.btndelete);
             this.groupBox1.Controls.Add(this.btnupdate);
             this.groupBox1.Controls.Add(this.btnsave);
             this.groupBox1.Controls.Add(this.dateTimePicker);
@@ -77,25 +77,36 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Employee Details";
             // 
-            // button4
+            // txtIndex
             // 
-            this.button4.AutoSize = true;
-            this.button4.Location = new System.Drawing.Point(684, 219);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(117, 43);
-            this.button4.TabIndex = 25;
-            this.button4.Text = "Exit";
-            this.button4.UseVisualStyleBackColor = true;
+            this.txtIndex.Location = new System.Drawing.Point(234, 19);
+            this.txtIndex.Name = "txtIndex";
+            this.txtIndex.ReadOnly = true;
+            this.txtIndex.Size = new System.Drawing.Size(100, 30);
+            this.txtIndex.TabIndex = 27;
+            this.txtIndex.Visible = false;
             // 
-            // button3
+            // btnexit
             // 
-            this.button3.AutoSize = true;
-            this.button3.Location = new System.Drawing.Point(684, 162);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(117, 43);
-            this.button3.TabIndex = 24;
-            this.button3.Text = "Delete";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnexit.AutoSize = true;
+            this.btnexit.Location = new System.Drawing.Point(684, 219);
+            this.btnexit.Name = "btnexit";
+            this.btnexit.Size = new System.Drawing.Size(117, 43);
+            this.btnexit.TabIndex = 25;
+            this.btnexit.Text = "Exit";
+            this.btnexit.UseVisualStyleBackColor = true;
+            this.btnexit.Click += new System.EventHandler(this.btnexit_Click);
+            // 
+            // btndelete
+            // 
+            this.btndelete.AutoSize = true;
+            this.btndelete.Location = new System.Drawing.Point(684, 162);
+            this.btndelete.Name = "btndelete";
+            this.btndelete.Size = new System.Drawing.Size(117, 43);
+            this.btndelete.TabIndex = 24;
+            this.btndelete.Text = "Delete";
+            this.btndelete.UseVisualStyleBackColor = true;
+            this.btndelete.Click += new System.EventHandler(this.btndelete_Click);
             // 
             // btnupdate
             // 
@@ -106,7 +117,7 @@
             this.btnupdate.TabIndex = 23;
             this.btnupdate.Text = "Update";
             this.btnupdate.UseVisualStyleBackColor = true;
-            this.btnupdate.Click += new System.EventHandler(this.button2_Click);
+            this.btnupdate.Click += new System.EventHandler(this.btnupdate_Click);
             // 
             // btnsave
             // 
@@ -154,6 +165,7 @@
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(380, 30);
             this.txtPhone.TabIndex = 17;
+            this.txtPhone.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPhone_KeyPress);
             // 
             // txtName
             // 
@@ -163,6 +175,7 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(380, 30);
             this.txtName.TabIndex = 16;
+            this.txtName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtName_KeyPress);
             // 
             // label6
             // 
@@ -228,31 +241,28 @@
             this.dataGridView1.TabIndex = 12;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
-            // textBox5
+            // txtSearch
             // 
-            this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox5.Location = new System.Drawing.Point(176, 341);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(380, 26);
-            this.textBox5.TabIndex = 23;
+            this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSearch.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.txtSearch.Location = new System.Drawing.Point(176, 341);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(380, 26);
+            this.txtSearch.TabIndex = 23;
+            this.txtSearch.Text = "Search using full name only";
+            this.txtSearch.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtSearch_MouseClick);
             // 
-            // button5
+            // btnsearch
             // 
-            this.button5.AutoSize = true;
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(582, 332);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(119, 35);
-            this.button5.TabIndex = 26;
-            this.button5.Text = "Search";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // txtIndex
-            // 
-            this.txtIndex.Location = new System.Drawing.Point(234, 19);
-            this.txtIndex.Name = "txtIndex";
-            this.txtIndex.Size = new System.Drawing.Size(100, 30);
-            this.txtIndex.TabIndex = 27;
+            this.btnsearch.AutoSize = true;
+            this.btnsearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnsearch.Location = new System.Drawing.Point(582, 332);
+            this.btnsearch.Name = "btnsearch";
+            this.btnsearch.Size = new System.Drawing.Size(119, 35);
+            this.btnsearch.TabIndex = 26;
+            this.btnsearch.Text = "Search";
+            this.btnsearch.UseVisualStyleBackColor = true;
+            this.btnsearch.Click += new System.EventHandler(this.btnsearch_Click);
             // 
             // Form1
             // 
@@ -260,8 +270,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(881, 659);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.btnsearch);
+            this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -294,11 +304,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnsave;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Button btnexit;
+        private System.Windows.Forms.Button btndelete;
         private System.Windows.Forms.Button btnupdate;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnsearch;
         private System.Windows.Forms.TextBox txtIndex;
     }
 }
